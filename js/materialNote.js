@@ -5190,7 +5190,8 @@ var dom = (function() {
             $closeBtn = $linkDialog.find('.btnClose');
         var $openInNewWindow = $linkDialog.find('input[type=checkbox]');
 
-        $linkDialog.openModal();
+        $linkDialog.modal();
+        $linkDialog.modal('open');
         $linkText.val(linkInfo.text);
         if (linkInfo.text.length > 0) $linkTextLabel.addClass('active');
 
@@ -5204,7 +5205,7 @@ var dom = (function() {
         $closeBtn.click(function(event) {
           event.preventDefault();
 
-          $linkDialog.closeModal();
+          $linkDialog.modal('close');
         });
 
         // if no url was given, copy text to url
@@ -5241,7 +5242,7 @@ var dom = (function() {
           $('.note-link-text').val('');
           $('.note-link-text').next('label').removeClass('active');
           $('.note-link-url').val('');
-          $linkDialog.closeModal();
+          $linkDialog.modal('close');
         });
       }).promise();
     };
@@ -5333,13 +5334,14 @@ var dom = (function() {
             $imageBtn = $dialog.find('.note-image-btn'),
             $closeBtn = $imageDialog.find('.btnClose');
 
-        $imageDialog.openModal();
+        $imageDialog.modal();
+        $imageDialog.modal('open');
         // Cloning imageInput to clear element.
         $imageInput.replaceWith($imageInput.clone()
             .on('change', function() {
               deferred.resolve(this.files || this.value);
               $imageUrl.val('');
-              $imageDialog.closeModal();
+              $imageDialog.modal('close');
               deferred.resolve();
             })
             .val('')
@@ -5350,14 +5352,14 @@ var dom = (function() {
 
           deferred.resolve($imageUrl.val());
           $imageUrl.val('');
-          $imageDialog.closeModal();
+          $imageDialog.modal('close');
           deferred.resolve();
         });
 
         $closeBtn.click(function(event) {
           event.preventDefault();
 
-          $imageDialog.closeModal();
+          $imageDialog.modal('close');
         });
 
         $imageUrl.on('keyup paste', function(event) {
@@ -5388,7 +5390,8 @@ var dom = (function() {
       return $.Deferred(function(deferred) {
         var $helpDialog = $dialog.find('.note-help-dialog');
 
-        $helpDialog.openModal();
+        $helpDialog.modal();
+        $helpDialog.modal('open');
         deferred.resolve();
       }).promise();
     };
@@ -6805,7 +6808,7 @@ var dom = (function() {
       $dialog.addClass('note-air-layout');
       $dialog.attr('id', 'note-dialog-' + id);
       $dialog.find('button.close, a.modal-close').click(function() {
-        $(this).closest('.modal').closeModal();
+        $(this).closest('.modal').modal('close');
       });
       $dialog.appendTo(body);
     };
@@ -6942,7 +6945,7 @@ var dom = (function() {
       //07. create Dialog
       var $dialog = $(tplDialogs(langInfo, options)).prependTo($editor);
       $dialog.find('button.close, a.modal-close').click(function() {
-        $(this).closest('.modal').closeModal();
+        $(this).closest('.modal').modal('close');
       });
 
       //08. create Dropzone
